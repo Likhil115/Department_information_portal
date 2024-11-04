@@ -9,7 +9,7 @@
  "server": "nodemon Backend/index.js",
  
   
- "client": "npm start --prefix Frontend/my-app"
+ "client": "npm start --prefix Frontend/my-app1"
  
  },
  

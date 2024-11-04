@@ -1,0 +1,137 @@
+/* General container styling */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .homepage-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #00adb5;
+  }
+  
+  .homepage-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #eeeeee;
+  }
+  
+  /* Card grid layout */
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  .card-link {
+    text-decoration: none;
+  }
+  
+  /* Card styling */
+  .card {
+    background: #1f1f1f;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card:hover {
+    box-shadow: 0px 6px 15px rgba(0, 173, 181, 0.4);
+  }
+  
+  .icon-container {
+    font-size: 3em;
+    color: #00adb5;
+    margin-bottom: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #eeeeee;
+  }
+  
+  .card-description {
+    font-size: 1em;
+    color: #b0b0b0;
+  }
+  .profile-container {
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    background-color: #a57891;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  
+  .dropdown-menu.hidden {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  
+  .dropdown-header {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .dropdown-links {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown-link {
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .dropdown-link:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .logout {
+    color: #d9534f;
+    font-weight: bold;
+  }
+  
+  .logout:hover {
+    background-color: #f8d7da;
+  }
+  .profile-image {
+    width: 40px;               /* Set the size of the icon */
+    height: 40px;              /* Set the size of the icon */
+    border-radius: 50%;        /* Make it circular */
+    object-fit: cover;         /* Ensure the image covers the entire circle without distortion */
+    border: 2px solid #ddd;    /* Optional border for a refined look */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+  }
+  

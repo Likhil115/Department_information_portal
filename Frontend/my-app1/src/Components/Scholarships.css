@@ -1,0 +1,74 @@
+/* Scholarships Page Styles - Dark Theme */
+.scholarships-page {
+  
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #080808; 
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 2.4em;
+  color: #ffffff; /* White title */
+  margin-bottom: 20px;
+}
+
+.page-subtitle {
+  font-size: 1.2em;
+  color: #aaaaaa; /* Lighter gray for subtitle */
+  margin-bottom: 40px;
+}
+
+/* Scholarship container for grid layout */
+.scholarship-container {
+  display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* Scholarship card styling */
+.scholarship-card {
+  background-color: #1e1e1e; /* Dark card background */
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(34, 163, 67, 0.1); /* Lighter shadow for contrast */
+  padding: 20px;
+  text-align: left;
+  transition: box-shadow 0.3s ease;
+  
+}
+
+.scholarship-card:hover {
+  box-shadow: 0 8px 8px rgba(255, 255, 255, 0.2); /* Increase shadow on hover */
+}
+
+.scholarship-title {
+  font-size: 1.4em;
+  color: #ffffff; /* White title in cards */
+  margin-bottom: 10px;
+}
+
+.scholarship-amount,
+.scholarship-eligibility,
+.scholarship-deadline,
+.scholarship-description {
+  font-size: 1em;
+  color: #e0e0e0; /* Light text for scholarship details */
+  margin: 5px 0;
+}
+
+.scholarship-link {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #bb86fc; /* Light purple button */
+  color: #ffffff; /* White button text */
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.scholarship-link:hover {
+  background-color: #9b66e0; /* Darker purple on hover */
+}

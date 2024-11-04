@@ -1,0 +1,65 @@
+/* Container styling */
+.publications-container {
+    padding: 40px;
+    background-color: #121212;
+    color: #ffffff;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .publications-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #00adb5;
+  }
+  
+  .publications-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #eeeeee;
+  }
+  
+  /* Card container */
+  .publications-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Card styling */
+  .publication-card {
+    background: #1f1f1f;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .publication-card:hover {
+    box-shadow: 0px 6px 15px rgba(0, 173, 181, 0.4);
+  }
+  
+  .publication-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #00adb5;
+  }
+  
+  .publication-authors,
+  .publication-year,
+  .publication-description {
+    font-size: 1em;
+    color: #b0b0b0;
+  }
+  
+  .publication-description {
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  

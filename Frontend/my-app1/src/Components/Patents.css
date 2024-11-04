@@ -1,0 +1,71 @@
+/* Patents Page Styles */
+.patents-page {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #0d0d0e; /* Light background */
+    min-height: 100vh;
+  }
+  
+  .page-title {
+    font-size: 2.4em;
+    color: #6be4ec; /* Dark title color */
+    margin-bottom: 20px;
+  }
+  
+  .page-subtitle {
+    font-size: 1.2em;
+    color: #edf0f3; /* Subtitle color */
+    margin-bottom: 40px;
+  }
+  
+  /* Patent container for grid layout */
+  .patent-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+  /* Patent card styling */
+  .patent-card {
+    background-color: #111111; /* White card background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    text-align: left;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .patent-card:hover {
+    box-shadow: 0 5px 5px #00adb5; /* Increase shadow on hover */
+  }
+  
+  .patent-title {
+    font-size: 1.5em;
+    color: hsl(210, 23%, 95%); /* Title color */
+    margin-bottom: 10px;
+  }
+  
+  .patent-description,
+  .patent-number {
+    font-size: 1em;
+    color: #bac7d3; /* Darker gray for text */
+    margin: 5px 0;
+  }
+  
+  .patent-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary button color */
+    color: #ffffff; /* White button text */
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .patent-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  

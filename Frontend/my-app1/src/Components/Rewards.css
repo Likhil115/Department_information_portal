@@ -1,0 +1,71 @@
+
+.rewards-page {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #080808; 
+    min-height: 100vh;
+
+  }
+  
+  .page-title {
+    font-size: 2.4em;
+    color: #00adb5; 
+    margin-bottom: 20px;
+  }
+  
+  .page-subtitle {
+    font-size: 1.2em;
+    color: #eef2f5; /* Subtitle color */
+    margin-bottom: 40px;
+  }
+ 
+  .reward-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+  }
+  
+
+  .reward-card {
+    background-color: #0c0b0b; /* White card background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    text-align: left;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .reward-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  }
+  
+  .reward-title {
+    font-size: 1.5em;
+    color: #e5e7e9; /* Title color */
+    margin-bottom: 10px;
+  }
+  
+  .reward-description,
+  .reward-eligibility {
+    font-size: 1em;
+    color: #e7eaec; /* Darker gray for text */
+    margin: 5px 0;
+  }
+  
+  .reward-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Primary button color */
+    color: #ffffff; /* White button text */
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reward-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
