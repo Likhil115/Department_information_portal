@@ -17,7 +17,7 @@ const HomePage = ({ user }) => {
 
   // Define sections without Login if the user is authenticated
   var sections=[]
-  if(user){
+  
   sections = [
     { name: "Publications", icon: <FaBook />, path: "/publications", description: "Explore recent research and publications." },
     { name: "Projects", icon: <FaProjectDiagram />, path: "/projects", description: "Discover current and completed projects." },
@@ -26,7 +26,7 @@ const HomePage = ({ user }) => {
     { name: "Conferences", icon: <FaCertificate />, path: "/conferences", description: "Upcoming conferences and workshops." },
     { name: "Patents", icon: <FaAward />, path: "/patents", description: "Browse patented research and inventions." },
   ];
-}
+
 
   // Add login option to sections if the user is not authenticated
   if (!user) {

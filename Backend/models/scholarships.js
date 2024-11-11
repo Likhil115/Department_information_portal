@@ -2,7 +2,7 @@ const express=require("express")
 const mongoose=require("mongoose")
 
 
-const scholarshipschema=mongoose.Schema({
+const scholarshipschema=new mongoose.Schema({
     title:{
         type:String,
         required:true,
@@ -17,7 +17,7 @@ const scholarshipschema=mongoose.Schema({
         required:true,
 
     },
-    eligiblity:{
+    eligibility:{
         type:String,
         required:true,
 
@@ -31,6 +31,10 @@ const scholarshipschema=mongoose.Schema({
         type:String,
         required:true,
 
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
     },
 
 

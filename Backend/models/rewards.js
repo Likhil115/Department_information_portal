@@ -2,7 +2,7 @@ const express=require("express")
 const mongoose=require("mongoose")
 
 
-const rewardschema=mongoose.Schema({
+const rewardschema=new mongoose.Schema({
     title:{
         type:String,
         required:true,
@@ -14,7 +14,7 @@ const rewardschema=mongoose.Schema({
         required:true,
 
     },
-    eligiblity:{
+    eligibility:{
         type:String,
         required:true,
 
@@ -23,6 +23,10 @@ const rewardschema=mongoose.Schema({
         type:String,
         required:true,
 
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
     },
 
 

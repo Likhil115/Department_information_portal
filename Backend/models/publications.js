@@ -2,7 +2,7 @@ const express=require("express")
 const mongoose=require("mongoose")
 
 
-const publicationschema=mongoose.Schema({
+const publicationschema=new mongoose.Schema({
     title:{
         type:String,
         required:true,
@@ -26,6 +26,10 @@ const publicationschema=mongoose.Schema({
         type:String,
         required:true,
 
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
     },
 
 

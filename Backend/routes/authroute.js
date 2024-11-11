@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get("/user", authMiddleware, (req, res) => {
     if (req.user) {
-        console.log(req.user);
-        return res.json({ user: req.user }); // Send the user data to the frontend
+        return res.json({ user: req.user }); 
     } else {
         return res.status(401).json({ message: "Unauthorized" });
     }

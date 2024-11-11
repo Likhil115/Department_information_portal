@@ -13,7 +13,7 @@ const patentschema=mongoose.Schema({
         required:true,
 
     },
-    patentnum:{
+    patentNumber:{
         type:String,
         required:true,
 
@@ -22,6 +22,10 @@ const patentschema=mongoose.Schema({
         type:String,
         required:true,
 
+    },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"user",
     },
 
 

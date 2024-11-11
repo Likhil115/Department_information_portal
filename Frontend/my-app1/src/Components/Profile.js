@@ -1,4 +1,4 @@
-// src/components/ProfilePage.js
+
 import React from 'react';
 import './Profile.css';
 

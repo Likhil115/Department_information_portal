@@ -7,13 +7,10 @@ const {setUser}=require("../services/user")
 router.post("/signup", async (req, res) => {
     const { username, email, password, confirmPassword, userType } = req.body;
 
-    // Check for missing fields
     if (!email || !username || !password || !confirmPassword || !userType) {
         return res.status(400).json({ message: "All fields are required" });
     }
    
-       
-    // Confirm password check
     if (password !== confirmPassword) {
         return res.status(400).json({ message: "Passwords do not match" });
     }

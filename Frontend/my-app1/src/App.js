@@ -42,13 +42,13 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={<HomePage user={user} />} /> {/* Pass user as prop */}
-          <Route path="/publications" element={<Publications />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/conferences" element={<Conferences />} />
-          <Route path="/scholarships" element={<Scholarships />} />
-          <Route path="/rewards" element={<Rewards />} />
-          <Route path="/patents" element={<Patents />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/publications" element={<Publications user={user} />} />
+          <Route path="/projects" element={<Projects user={user} />} />
+          <Route path="/conferences" element={<Conferences user={user} />} />
+          <Route path="/scholarships" element={<Scholarships user={user} />} />
+          <Route path="/rewards" element={<Rewards user={user} />} />
+          <Route path="/patents" element={<Patents user={user} />} />
+          <Route path="/profile" element={<ProfilePage user={user} />} />
           
         </Routes>
       </div>

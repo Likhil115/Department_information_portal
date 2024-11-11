@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Implement your login logic here
+    
     
 try {
   const response = await axios.post('/user/signin', {
