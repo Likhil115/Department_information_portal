@@ -1,137 +1,303 @@
-/* General container styling */
-.homepage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-    background-color: #121212;
-    color: #ffffff;
-    min-height: 100vh;
-    text-align: center;
-  }
+/* Overall layout */
+
+/* General Layout */
+.homepage {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f2f5, #e0e4e8);
+  flex-direction: column;
+}
+
+/* Sidebar styling */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100%;
+  background: #2d3748;
+  color: #ffffff;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 20px;
+  right: -40px;
+  background: none;
+  border: none;
+  color: #0f0f0f;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+}
+
+.sidebar-link {
+  color: #a0aec0;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 8px;
+  margin: 5px;
+}
+
+.sidebar-link:hover {
+  background: #4a5568;
+  color: #81e6d9;
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+/* Main content styling */
+.main-content {
+  flex: 1;
+  padding: 40px;
+  margin-left: 60px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.shifted {
+  margin-left: 240px;
+}
+
+
+.profile-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.profile-icon {
+  color: #2d3748;
+  font-size: 30px; 
   
-  .homepage-title {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #00adb5;
-  }
-  
-  .homepage-subtitle {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    color: #eeeeee;
-  }
-  
-  /* Card grid layout */
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+}
+
+
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 250px;
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15); /* Soft shadow */
+  padding: 15px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.profile-container:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown Header (User Info) */
+.dropdown-header {
+  text-align: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.dropdown-header img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.dropdown-header p {
+  margin: 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.dropdown-header p:last-child {
+  font-weight: normal;
+  color: #777;
+}
+
+/* Links inside the dropdown */
+.dropdown-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-link {
+  color: #333;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.dropdown-link:hover {
+  background-color: #00adb5; /* Subtle hover effect */
+  color: #fff; /* Text color change on hover */
+}
+
+/* Logout button style */
+.logout {
+  color: #d9534f;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.logout:hover {
+  background-color: #f5c6cb; /* Change background on hover */
+}
+
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-size: 2.5em;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  font-size: 1.2em;
+  color: #718096;
+}
+
+/* Card section styling */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #2d3748;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0px 6px 15px rgba(56, 178, 172, 0.4); /* Light teal shadow */
+}
+
+.icon-container {
+  font-size: 3em;
+  color: #68d391; /* Teal color for icons */
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 1.5em;
+  color: #2d3748;
+  margin: 10px 0;
+}
+
+.card-description {
+  font-size: 1em;
+  color: #718096;
+  text-align: center;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .sidebar {
     width: 100%;
-    max-width: 1200px;
+    height: auto;
+    position: relative;
+    transform: translateX(0);
   }
-  
-  .card-link {
-    text-decoration: none;
+
+  .sidebar.open {
+    transform: translateY(0);
   }
-  
-  /* Card styling */
-  .card {
-    background: #1f1f1f;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+  .sidebar-toggle {
+    top: 10px;
+    right: 10px;
   }
-  
-  .card:hover {
-    box-shadow: 0px 6px 15px rgba(0, 173, 181, 0.4);
+
+  .main-content {
+    margin-left: 0;
   }
-  
-  .icon-container {
-    font-size: 3em;
-    color: #00adb5;
-    margin-bottom: 10px;
-  }
-  
-  .card-title {
-    font-size: 1.5em;
-    margin: 10px 0;
-    color: #eeeeee;
-  }
-  
-  .card-description {
-    font-size: 1em;
-    color: #b0b0b0;
-  }
+
   .profile-container {
-    cursor: pointer;
+    margin-top: 10px;
   }
-  
-  .dropdown-menu {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 200px;
-    background-color: #a57891;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+
+  .hero-title {
+    font-size: 2em;
+  }
+
+  .card {
     padding: 15px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 1;
-    transform: scaleY(1);
-    transform-origin: top;
   }
-  
-  .dropdown-menu.hidden {
-    opacity: 0;
-    transform: scaleY(0);
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8em;
   }
-  
-  .dropdown-header {
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
+
+  .card-title {
+    font-size: 1.3em;
   }
-  
-  .dropdown-links {
-    display: flex;
-    flex-direction: column;
+
+  .icon-container {
+    font-size: 2.5em;
   }
-  
-  .dropdown-link {
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: left;
-    text-decoration: none;
-    transition: background-color 0.2s;
+
+  .dropdown-menu {
+    right: 5px;
+    width: 90%;
   }
-  
-  .dropdown-link:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .logout {
-    color: #d9534f;
-    font-weight: bold;
-  }
-  
-  .logout:hover {
-    background-color: #f8d7da;
-  }
-  .profile-image {
-    width: 40px;               /* Set the size of the icon */
-    height: 40px;              /* Set the size of the icon */
-    border-radius: 50%;        /* Make it circular */
-    object-fit: cover;         /* Ensure the image covers the entire circle without distortion */
-    border: 2px solid #ddd;    /* Optional border for a refined look */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
-  }
-  
+}
+

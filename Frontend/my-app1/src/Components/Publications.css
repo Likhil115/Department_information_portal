@@ -1,91 +1,163 @@
-/* Container styling */
+/* General Container Styling */
 .publications-container {
-    padding: 40px;
-    background-color: #121212;
-    color: #ffffff;
-    min-height: 100vh;
-    text-align: center;
-  }
-  
-  .publications-title {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    color: #00adb5;
-  }
-  
-  .publications-subtitle {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    color: #eeeeee;
-  }
-  
-  /* Card container */
-  .publications-card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Card styling */
-  .publication-card {
-    background: #1f1f1f;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  .publication-card:hover {
-    box-shadow: 0px 6px 15px rgba(0, 173, 181, 0.4);
-  }
-  
-  .publication-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #00adb5;
-  }
-  
-  .publication-authors,
-  .publication-year,
-  .publication-description {
-    font-size: 1em;
-    color: #b0b0b0;
-  }
-  
-  .publication-description {
-    margin-top: 10px;
-    line-height: 1.5;
-  }
-  .add-publication-button {
-  margin: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  }
-
-
-.publication-form input,
-.publication-form textarea {
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 40px;
+  background-color: #eee5e5;
+  color: #ffffff;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.submit-button, .close-button {
-  margin-top: 20px;
+
+.publications-title {
+  font-size: 2.8em;
+  margin-bottom: 15px;
+  color: #00adb5;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+}
+
+.publications-subtitle {
+  font-size: 1.2em;
+  margin-bottom: 40px;
+  color: #131212;
+  font-family: 'Arial', sans-serif;
+  font-weight: 400;
+}
+
+/* Add Publication Button */
+.add-publication-button {
+  margin: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #00adb5;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-publication-button:hover {
+  background-color: #00bfae;
+  transform: translateY(-2px);
+}
+
+.add-publication-button:active {
+  transform: translateY(2px);
+}
+
+/* Publications Card Container */
+.publications-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Publication Card Styling */
+.publication-card {
+  background: #3d485e;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.publication-card:hover {
+  box-shadow: 0px 10px 25px rgba(0, 173, 181, 0.4);
+  transform: translateY(-5px);
+}
+
+.publication-title {
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  color: #00adb5;
+  font-weight: 600;
+}
+
+.publication-authors,
+.publication-year,
+.publication-description {
+  font-size: 1em;
+  color: #b0b0b0;
+}
+
+.publication-description {
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+.publication-link {
+  margin-top: 15px;
+  text-decoration: none;
+  color: #00adb5;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.publication-link:hover {
+  color: #008a8f;
+}
+
+/* Action buttons container */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* Edit button styles */
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
   padding: 10px 15px;
   cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.edit-button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
 
+.edit-button:active {
+  transform: translateY(2px);
+}
+
+/* Delete button styles */
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #e53935;
+  transform: translateY(-2px);
+}
+
+.delete-button:active {
+  transform: translateY(2px);
+}
+
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -99,8 +171,9 @@
   z-index: 1000;
 }
 
+/* Modal Content */
 .modal-content {
-  background: #ecf1f3;
+  background: #ffffff;
   border-radius: 10px;
   padding: 2rem;
   max-width: 400px;
@@ -108,22 +181,26 @@
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
   position: relative;
   text-align: center;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Modal Title */
 .modal-content h2 {
   margin-bottom: 1.5rem;
   color: #333;
+  font-weight: 600;
 }
 
+/* Modal Form Elements */
 .publication-form input,
 .publication-form textarea {
   width: 100%;
-  padding: 0.8rem;
+  padding: 12px;
   margin-bottom: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
-  transition: 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 .publication-form input:focus,
@@ -133,12 +210,12 @@
   outline: none;
 }
 
+/* Submit Button */
 .submit-button {
   width: 100%;
-  padding: 0.8rem;
-  border: none;
+  padding: 12px;
   background-color: #66a6ff;
-  color: #fff;
+  color: white;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
@@ -146,63 +223,20 @@
 }
 
 .submit-button:hover {
-  background-color: #89f7fe;
+  background-color: #4a90e2;
 }
+
 
 .close-button {
   margin-top: 1rem;
-  padding: 0.6rem 1.2rem;
-  border: none;
+  padding: 10px 20px;
   background-color: #333;
-  color: #fff;
+  color: white;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .close-button:hover {
   background-color: #e74c3c;
-}
-
-/* Publications.css */
-
-/* Action buttons container */
-.action-buttons {
-  
-  display: flex;
-  justify-content: space-between;
-  margin-top: auto; 
-}
-
-/* Edit button styles */
-.edit-button {
-  background-color: #4CAF50; /* Green color */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.edit-button:hover {
-  background-color: #45a049; /* Slightly darker green */
-}
-
-/* Delete button styles */
-.delete-button {
-  background-color: #f44336; /* Red color */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.delete-button:hover {
-  background-color: #e53935; /* Slightly darker red */
 }
