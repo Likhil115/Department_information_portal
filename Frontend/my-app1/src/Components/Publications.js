@@ -6,18 +6,14 @@ import axios from 'axios';
 const Publications = ({ user }) => {
   const [publications, setPublications] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false); // New state for edit mode
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ title: '', authors: '', year: '', description: '', url: '' });
-  const [editData, setEditData] = useState(null); // New state for tracking data to edit
+  const [editData, setEditData] = useState(null);
 
   useEffect(() => {
     axios.get('/api/publications')
-      .then(response => {
-        setPublications(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
+      .then((response) => setPublications(response.data))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const openModal = () => setIsModalOpen(true);
@@ -32,20 +28,19 @@ const Publications = ({ user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Add publication
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const publicationData = isEditing
         ? { ...formData }
-        : { ...formData, createdBy: user._id }; // Associate user ID
+        : { ...formData, createdBy: user._id };
 
       const response = isEditing
         ? await axios.put(`/api/publications/${editData._id}`, publicationData)
         : await axios.post('/api/publications', publicationData);
 
       if (isEditing) {
-        setPublications(publications.map(pub => pub._id === editData._id ? response.data : pub));
+        setPublications(publications.map((pub) => (pub._id === editData._id ? response.data : pub)));
       } else {
         setPublications([...publications, response.data]);
       }
@@ -56,20 +51,18 @@ const Publications = ({ user }) => {
     }
   };
 
-  // Delete publication
   const handleDelete = async (id) => {
     try {
       const confirmed = window.confirm("Are you sure you want to delete this publication?");
       if (!confirmed) return;
 
       await axios.delete(`/api/publications/${id}`);
-      setPublications(publications.filter(pub => pub._id !== id));
+      setPublications(publications.filter((pub) => pub._id !== id));
     } catch (error) {
       console.error("Error deleting publication:", error);
     }
   };
 
-  // Open edit modal with existing data
   const handleEdit = (publication) => {
     setIsEditing(true);
     setEditData(publication);
@@ -82,15 +75,16 @@ const Publications = ({ user }) => {
       <h1 className="publications-title">Publications</h1>
       <p className="publications-subtitle">Discover our recent research and publications</p>
 
-      {/* Button to open modal */}
-     { user && ( <motion.button
-        onClick={openModal}
-        className="add-publication-button"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {isEditing ? 'Edit Publication' : 'Add New Publication'}
-      </motion.button>)}
+      {user && (
+        <motion.button
+          onClick={openModal}
+          className="add-publication-button"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Add New Publication
+        </motion.button>
+      )}
 
       <div className="publications-card-container">
         {publications.map((pub) => (
@@ -105,11 +99,11 @@ const Publications = ({ user }) => {
             <p className="publication-year"><strong>Year:</strong> {pub.year}</p>
             <p className="publication-description">{pub.description}</p>
             <a href={pub.url} target="_blank" rel="noopener noreferrer" className="publication-link">Read More</a>
-            {user && pub && (String(user._id) === String(pub.createdBy) || String(user._id)==="67268769c54d481cc698dd3a") && (
-              <div className="action-buttons">
+            {user && pub && (String(user._id) === String(pub.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+              <div className="action-buttons-inline">
                 <motion.button
                   onClick={() => handleEdit(pub)}
-                  className="edit-button"
+                  className="edit-button-inline"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -117,7 +111,7 @@ const Publications = ({ user }) => {
                 </motion.button>
                 <motion.button
                   onClick={() => handleDelete(pub._id)}
-                  className="delete-button"
+                  className="delete-button-inline"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -129,7 +123,6 @@ const Publications = ({ user }) => {
         ))}
       </div>
 
-      {/* Modal for adding or editing a publication */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div

@@ -85,10 +85,10 @@ const Conferences = ({ user }) => {
   return (
     <div className="conferences-page">
       <div className="parallax-background">
-        <h1 className="page-title">Conferences</h1>
+        <h1 className="page-title2">Conferences</h1>
       </div>
       <div className="conferences-container">
-        <p className="page-subtitle">Join us at upcoming events around the world</p>
+        <p className="page-subtitle2">Join us at upcoming events around the world</p>
 
         {user && (
           <motion.button

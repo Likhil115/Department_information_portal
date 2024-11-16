@@ -62,7 +62,7 @@
 
 /* Publication Card Styling */
 .publication-card {
-  background: #3d485e;
+  background: #343c4d;
   border-radius: 16px;
   padding: 20px;
   display: flex;
@@ -115,48 +115,43 @@
   margin-top: auto;
 }
 
-/* Edit button styles */
-.edit-button {
-  background-color: #4CAF50;
-  color: white;
+/* Inline Action Buttons */
+.action-buttons-inline {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-button-inline,
+.delete-button-inline {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
   border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
   border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.edit-button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
+.edit-button-inline {
+  background-color: #b0ee94; /* Yellow for Edit */
+  color: #333;
 }
 
-.edit-button:active {
-  transform: translateY(2px);
+.edit-button-inline:hover {
+  background-color: #e0a800;
 }
 
-/* Delete button styles */
-.delete-button {
-  background-color: #f44336;
+.delete-button-inline {
+  background-color: #ee5a69; /* Red for Delete */
   color: white;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.delete-button:hover {
-  background-color: #e53935;
-  transform: translateY(-2px);
+.delete-button-inline:hover {
+  background-color: #c82333;
 }
-
-.delete-button:active {
-  transform: translateY(2px);
-}
-
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;

@@ -1,10 +1,13 @@
 /* General container styling */
 .projects-container {
-    padding: 40px;
-    background-color: #121212;
-    color: #ffffff;
-    min-height: 100vh;
-    text-align: center;
+  padding: 40px;
+  background-color: #eee5e5;
+  color: #ffffff;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   }
   
   .projects-title {
@@ -16,7 +19,7 @@
   .projects-subtitle {
     font-size: 1.2em;
     margin-bottom: 30px;
-    color: #eeeeee;
+    color: #0f0f0f;
   }
   
   /* Card grid layout */
@@ -31,16 +34,14 @@
   
   /* Card styling with 3D effect */
   .project-card {
-    background: #1f1f1f;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    perspective: 1000px;
-    transform-origin: center;
+    background: #465068;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #ffffff;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   }
   
   .project-card:hover {
@@ -81,3 +82,42 @@
     background-color: #008b8f;
   }
   
+
+  
+/* Inline Action Buttons */
+.action-buttons-inline {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.edit-button-inline,
+.delete-button-inline {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-button-inline {
+  background-color: #b0ee94; /* Yellow for Edit */
+  color: #333;
+}
+
+.edit-button-inline:hover {
+  background-color: #e0a800;
+}
+
+.delete-button-inline {
+  background-color: #ee5a69; /* Red for Delete */
+  color: white;
+}
+
+.delete-button-inline:hover {
+  background-color: #c82333;
+}

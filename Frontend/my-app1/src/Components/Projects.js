@@ -115,27 +115,28 @@ const handleEdit = (project) => {
             >
               View Project
             </a>
-
-
-          {user && project && (String(user._id) === String(project.createdBy) || String(user._id)==="67268769c54d481cc698dd3a") && (  <div className="action-buttons">
-              <motion.button
-                onClick={() => handleEdit(project)}
-                className="edit-button"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Edit
-              </motion.button>
-              <motion.button
-                onClick={() => handleDelete(project._id)}
-                className="delete-button"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Delete
-              </motion.button>
-            </div>)}
+            {user && project && (String(user._id) === String(project.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+              <div className="action-buttons-inline">
+                <motion.button
+                  onClick={() => handleEdit(project)}
+                  className="edit-button-inline"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  Edit
+                </motion.button>
+                <motion.button
+                  onClick={() => handleDelete(project._id)}
+                  className="delete-button-inline"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  Delete
+                </motion.button>
+              </div>
+            )}
           </motion.div>
+          
         ))}
       </div>
 

@@ -53,11 +53,12 @@ const HomePage = ({ user }) => {
         {/* Profile Icon */}
         {user && (
           <div className="profile-container" onClick={toggleDropdown}>
-            <FaUserCircle size={30} className="profile-icon" />
+            <FaUserCircle  className="profile-icon" />
+            {/* <img src={user.profileImageURL} alt="Profile" size={30} className="profile-icon" /> */}
             {showDropdown && (
               <div className="dropdown-menu">
                 <div className="dropdown-header">
-                  <img src={`http://localhost:5000/${user.profileImageURL}`} alt="Profile" className="profile-image" />
+                  <img src={user.profileImageURL} alt="Profile" className="profile-image" />
                   <p><strong>{user.username}</strong></p>
                   <p>{user.email}</p>
                 </div>

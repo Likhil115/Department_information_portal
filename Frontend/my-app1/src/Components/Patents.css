@@ -170,32 +170,41 @@
 .close-button:hover {
   background-color: #e74c3c;
 }
+ 
+/* Inline Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
 
-/* Action Buttons */
-.edit-button, .delete-button {
-  padding: 8px 16px;
-  font-size: 14px;
+.edit-button,
+.delete-button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
   font-weight: bold;
-  color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-right: 5px;
+  transition: all 0.3s ease;
 }
 
 .edit-button {
-  background-color: #66a6ff; /* Blue for edit */
+  background-color: #b0ee94; /* Yellow for Edit */
+  color: #333;
 }
 
 .edit-button:hover {
-  background-color: #5a9bd8;
+  background-color: #e0a800;
 }
 
 .delete-button {
-  background-color: #d45d55; /* Red for delete */
+  background-color: #ee5a69; /* Red for Delete */
+  color: white;
 }
 
 .delete-button:hover {
-  background-color: #c04c45;
+  background-color: #c82333;
 }

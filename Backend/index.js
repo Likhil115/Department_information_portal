@@ -28,12 +28,12 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-// app.use(express.static(path.resolve("./public")));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use("/auth",authRoutes );
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.resolve("./public")));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
+app.use("/auth",authRoutes );
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/user",userroute);
 app.use("/api",apiroute);
 

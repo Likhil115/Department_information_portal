@@ -110,3 +110,22 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
+
+.image-preview {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 150px; /* Constrain the container width */
+  max-height: 150px; /* Constrain the container height */
+  overflow: hidden; /* Ensure content fits within bounds */
+  border-radius: 50%; /* Optional: Make it circular */
+  border: 2px solid #00adb5; /* Optional: Add a border */
+}
+
+.image-preview img {
+  width: 100%; /* Scale to fit within the container */
+  height: 100%; /* Scale to fit within the container */
+  object-fit: cover; /* Ensure the image is cropped proportionally */
+  border-radius: inherit; /* Match the parent container's radius */
+}
