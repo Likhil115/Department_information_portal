@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const Conferences = ({ user }) => {
   const [conferences, setData] = useState([]);
+  const [filteredConferences, setFilteredConferences] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,11 +16,13 @@ const Conferences = ({ user }) => {
     url: ''
   });
   const [editData, setEditData] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     axios.get('/api/conferences') // Adjust URL if needed
       .then(response => {
         setData(response.data); // Store data in state
+        setFilteredConferences(response.data); // Initialize with all conferences
       })
       .catch(error => {
         console.error("Error fetching data:", error);
@@ -38,6 +41,22 @@ const Conferences = ({ user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter conferences based on search query
+    const filtered = conferences.filter((conf) => {
+      return (
+        conf.title.toLowerCase().includes(query) ||
+        conf.location.toLowerCase().includes(query) ||
+        conf.date.toLowerCase().includes(query)
+      );
+    });
+
+    setFilteredConferences(filtered);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,8 +70,10 @@ const Conferences = ({ user }) => {
 
       if (isEditing) {
         setData(conferences.map(conf => conf._id === editData._id ? response.data : conf));
+        setFilteredConferences(filteredConferences.map(conf => conf._id === editData._id ? response.data : conf));
       } else {
         setData([...conferences, response.data]);
+        setFilteredConferences([...filteredConferences, response.data]);
       }
 
       closeModal();
@@ -69,6 +90,7 @@ const Conferences = ({ user }) => {
 
       await axios.delete(`/api/conferences/${id}`);
       setData(conferences.filter(conf => conf._id !== id));
+      setFilteredConferences(filteredConferences.filter(conf => conf._id !== id));
     } catch (error) {
       console.error("Error deleting conference:", error);
     }
@@ -87,6 +109,17 @@ const Conferences = ({ user }) => {
       <div className="parallax-background">
         <h1 className="page-title2">Conferences</h1>
       </div>
+
+      <div className="filter-container">
+        <input
+          type="text"
+          placeholder="Search conferences..."
+          value={searchQuery}
+          onChange={handleSearch}
+          className="search-input"
+        />
+      </div>
+
       <div className="conferences-container">
         <p className="page-subtitle2">Join us at upcoming events around the world</p>
 
@@ -102,51 +135,52 @@ const Conferences = ({ user }) => {
         )}
 
         <div className="conferences-grid">
-          {conferences.map((conf, index) => (
-            <motion.div
-              key={index}
-              className="conference-card"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.2 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <h2 className="conference-title">{conf.title}</h2>
-              <p className="conference-location">{conf.location}</p>
-              <p className="conference-date">{conf.date}</p>
-              <p className="conference-description">{conf.description}</p>
-              <a 
-                href={conf.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="conference-link"
-              >
-                More Details
-              </a>
-              {user && conf && (String(user._id) === String(conf.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
-                <div className="action-buttons">
-                  <motion.button
-                    onClick={() => handleEdit(conf)}
-                    className="action-button edit-button"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    Edit
-                  </motion.button>
-                  <motion.button
-                    onClick={() => handleDelete(conf._id)}
-                    className="action-button delete-button"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    Delete
-                  </motion.button>
-                </div>
-              )}
-            </motion.div>
-          ))}
+        {filteredConferences.map((conf, index) => (
+    <motion.div
+      key={index}
+      className="conference-card"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.2 }}
+      whileHover={{ scale: 1.1 }}
+    >
+      <h2 className="conference-title">{conf.title}</h2>
+      <p className="conference-location">{conf.location}</p>
+      <p className="conference-date">{conf.date}</p>
+      <p className="conference-description">{conf.description}</p>
+      <a 
+        href={conf.url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="conference-link"
+      >
+        More Details
+      </a>
+      {user && conf && (String(user._id) === String(conf.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+        <div className="action-buttons">
+          <motion.button
+            onClick={() => handleEdit(conf)}
+            className="action-button edit-button"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Edit
+          </motion.button>
+          <motion.button
+            onClick={() => handleDelete(conf._id)}
+            className="action-button delete-button"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Delete
+          </motion.button>
+        </div>
+      )}
+    </motion.div>
+  ))}
         </div>
       </div>
+
       <AnimatePresence>
         {isModalOpen && (
           <motion.div

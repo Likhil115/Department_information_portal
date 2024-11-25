@@ -5,6 +5,8 @@ import './Scholarships.css';
 
 const Scholarships = ({ user }) => {
   const [scholarships, setScholarships] = useState([]);
+  const [filteredScholarships, setFilteredScholarships] = useState([]);
+  const [filterText, setFilterText] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -25,6 +27,7 @@ const Scholarships = ({ user }) => {
       .get('/api/scholarships')
       .then((response) => {
         setScholarships(response.data);
+        setFilteredScholarships(response.data);
         setLoading(false);
       })
       .catch(() => {
@@ -52,6 +55,19 @@ const Scholarships = ({ user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFilterChange = (e) => {
+    const searchValue = e.target.value.toLowerCase();
+    setFilterText(searchValue);
+
+    const filtered = scholarships.filter(
+      (scholarship) =>
+        scholarship.title.toLowerCase().includes(searchValue) ||
+        scholarship.eligibility.toLowerCase().includes(searchValue) ||
+        scholarship.deadline.includes(searchValue)
+    );
+    setFilteredScholarships(filtered);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -69,6 +85,7 @@ const Scholarships = ({ user }) => {
       } else {
         setScholarships([...scholarships, response.data]);
       }
+      setFilteredScholarships(scholarships);
       closeModal();
     } catch {
       setError('Failed to save scholarship.');
@@ -81,6 +98,7 @@ const Scholarships = ({ user }) => {
     try {
       await axios.delete(`/api/scholarships/${id}`);
       setScholarships(scholarships.filter((item) => item._id !== id));
+      setFilteredScholarships(scholarships.filter((item) => item._id !== id));
     } catch {
       setError('Failed to delete scholarship.');
     }
@@ -98,6 +116,15 @@ const Scholarships = ({ user }) => {
       <h1 className="page-title1">Scholarships</h1>
       <p className="page-subtitle1">Find opportunities to fund your dreams</p>
 
+      {/* Filter Input */}
+      <input
+        type="text"
+        className="filter-input"
+        placeholder="Search scholarships by title, eligibility, or deadline"
+        value={filterText}
+        onChange={handleFilterChange}
+      />
+
       {user && (
         <motion.button
           className="add-scholarship-button"
@@ -114,12 +141,15 @@ const Scholarships = ({ user }) => {
           <p className="loading-message">Loading scholarships...</p>
         ) : error ? (
           <p className="error-message">{error}</p>
-        ) : scholarships.length > 0 ? (
-          scholarships.map((scholarship) => (
+        ) : filteredScholarships.length > 0 ? (
+          filteredScholarships.map((scholarship) => (
             <motion.div
               key={scholarship._id}
               className="scholarship-card"
-              whileHover={{ translateY: -10, boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.2)' }}
+              whileHover={{
+                translateY: -10,
+                boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.2)',
+              }}
             >
               <h2 className="scholarship-title">{scholarship.title}</h2>
               <p className="scholarship-amount">

@@ -25,7 +25,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     // Validate email structure
-    const emailRegex = /^[a-zA-Z0-9._%+-]+_[mb]\d{6}cs@nitc\.ac\.in$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+_[mbp]\d{6}cs@nitc\.ac\.in$/;
     if (!emailRegex.test(email)) {
       setMessage({
         type: 'error',
@@ -66,7 +66,7 @@ const SignupPage = () => {
         text: error.response?.data?.message || 'An error occurred during signup.',
       });
     } finally {
-      setIsSubmitting(false); // Stop loading
+      setIsSubmitting(false); 
     }
   };
 

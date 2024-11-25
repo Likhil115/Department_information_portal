@@ -19,6 +19,8 @@ const HomePage = ({ user }) => {
     { name: "Rewards", icon: <FaMedal />, path: "/rewards", description: "View awards and recognitions." },
     { name: "Conferences", icon: <FaCertificate />, path: "/conferences", description: "Upcoming conferences and workshops." },
     { name: "Patents", icon: <FaAward />, path: "/patents", description: "Browse patented research and inventions." },
+    // { names: "Patents", icon: <FaAward />, path: "/patents", description: "Browse patented research and inventions." },
+   
     !user && { name: "Login", icon: <FaSignInAlt />, path: "/login", description: "Sign in to access more features." },
   ].filter(Boolean);
 
@@ -50,7 +52,7 @@ const HomePage = ({ user }) => {
 
       {/* Main Content */}
       <div className={`main-content ${sidebarOpen ? 'shifted' : ''}`}>
-        {/* Profile Icon */}
+       
         {user && (
           <div className="profile-container" onClick={toggleDropdown}>
             <FaUserCircle  className="profile-icon" />

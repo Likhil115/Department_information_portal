@@ -33,7 +33,7 @@ try {
 } catch (error) {
   setMessage({
     type: 'error',
-    text: error.response?.data?.message || 'An error occurred during signin',
+    text: error.response?.data?.message || 'Invalid Credentials',
   });
 }
    

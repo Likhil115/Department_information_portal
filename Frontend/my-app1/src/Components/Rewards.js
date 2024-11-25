@@ -5,15 +5,18 @@ import axios from 'axios';
 
 const Rewards = ({ user }) => {
   const [rewards, setRewards] = useState([]);
+  const [filteredRewards, setFilteredRewards] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ title: '', description: '', eligibility: '', url: '' });
   const [editData, setEditData] = useState(null);
+  const [filter, setFilter] = useState(''); // New state for filter input
 
   useEffect(() => {
     axios.get('/api/rewards')
       .then(response => {
         setRewards(response.data);
+        setFilteredRewards(response.data); // Initialize filtered rewards
       })
       .catch(error => {
         console.error("Error fetching rewards data:", error);
@@ -22,7 +25,6 @@ const Rewards = ({ user }) => {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
-    console.log("closed");
     setIsModalOpen(false);
     setIsEditing(false);
     setFormData({ title: '', description: '', eligibility: '', url: '' });
@@ -33,26 +35,41 @@ const Rewards = ({ user }) => {
     setFormData({ ...formData, [name]: value });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const rewardData = isEditing ? { ...formData } : { ...formData, createdBy: user._id };
+  const handleFilterChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setFilter(value);
 
-    const response = isEditing
-      ? await axios.put(`/api/rewards/${editData._id}`, rewardData)
-      : await axios.post('/api/rewards', rewardData);
+    // Filter rewards by title, description, or eligibility
+    const filtered = rewards.filter(
+      reward =>
+        reward.title.toLowerCase().includes(value) ||
+        reward.description.toLowerCase().includes(value) ||
+        reward.eligibility.toLowerCase().includes(value)
+    );
+    setFilteredRewards(filtered);
+  };
 
-    if (isEditing) {
-      setRewards(rewards.map(reward => reward._id === editData._id ? response.data : reward));
-    } else {
-      setRewards([...rewards, response.data]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const rewardData = isEditing ? { ...formData } : { ...formData, createdBy: user._id };
+
+      const response = isEditing
+        ? await axios.put(`/api/rewards/${editData._id}`, rewardData)
+        : await axios.post('/api/rewards', rewardData);
+
+      if (isEditing) {
+        setRewards(rewards.map(reward => reward._id === editData._id ? response.data : reward));
+      } else {
+        setRewards([...rewards, response.data]);
+      }
+
+      setFilteredRewards([...rewards, response.data]); // Update filtered rewards
+      closeModal();
+    } catch (error) {
+      console.error("Error saving reward:", error.response ? error.response.data : error.message);
     }
-
-    closeModal();
-  } catch (error) {
-    console.error("Error saving reward:", error.response ? error.response.data : error.message);
-  }
-};
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -60,7 +77,9 @@ const Rewards = ({ user }) => {
       if (!confirmed) return;
 
       await axios.delete(`/api/rewards/${id}`);
-      setRewards(rewards.filter(reward => reward._id !== id));
+      const updatedRewards = rewards.filter(reward => reward._id !== id);
+      setRewards(updatedRewards);
+      setFilteredRewards(updatedRewards); // Update filtered rewards
     } catch (error) {
       console.error("Error deleting reward:", error);
     }
@@ -78,6 +97,16 @@ const Rewards = ({ user }) => {
       <h1 className="page-title">Rewards</h1>
       <p className="page-subtitle">Recognizing excellence in our department</p>
 
+      <div className="filter-container">
+        <input
+          type="text"
+          placeholder="Search rewards by title, description, or eligibility"
+          value={filter}
+          onChange={handleFilterChange}
+          className="filter-input"
+        />
+      </div>
+
       {user && (
         <motion.button
           onClick={openModal}
@@ -90,7 +119,7 @@ const Rewards = ({ user }) => {
       )}
 
       <div className="reward-container">
-        {rewards.map((reward) => (
+        {filteredRewards.map((reward) => (
           <motion.div
             key={reward._id}
             className="reward-card"

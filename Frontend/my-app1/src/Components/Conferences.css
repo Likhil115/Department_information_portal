@@ -64,13 +64,26 @@ body {
   margin-top: 20px;
 }
 
-/* Conference Card */
 .conference-card {
-  background-color: #313a46;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  background: #fff;
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  word-wrap: break-word; /* Ensures words wrap properly */
+  overflow-wrap: break-word; /* Handles breaking long words */
+}
+
+.conference-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  white-space: normal; /* Allows line wrapping */
+  overflow: hidden; /* Prevents overflowing content */
+  text-overflow: ellipsis; /* Adds ellipsis for truncation */
+  display: -webkit-box; /* Required for multi-line truncation */
+  -webkit-line-clamp: 2; /* Limits to 2 lines */
+  -webkit-box-orient: vertical; /* Required for line-clamp */
 }
 
 .conference-card:hover {
@@ -78,12 +91,7 @@ body {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
 }
 
-.conference-title {
-  font-size: 22px;
-  font-weight: bold;
-  color: #bb86fc;
-  margin-bottom: 10px;
-}
+
 
 .conference-location,
 .conference-date,
@@ -232,6 +240,13 @@ body {
 .close-button:hover {
   color: #9b51e0;
 }
+
+@media (max-width: 768px) {
+  .conference-title {
+    font-size: 1.2rem; /* Smaller font size for mobile */
+  }
+}
+
 
 
 

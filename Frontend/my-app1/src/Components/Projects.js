@@ -3,100 +3,130 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Projects.css';
 
-const Projects = ({user}) => {
-  
+const Projects = ({ user }) => {
   const [projects, setData] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ title: '', lead: '', year: '', description: '', url: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [isEditing, setIsEditing] = useState(false);  
-  const [editData, setEditData] = useState(null); 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editData, setEditData] = useState(null);
+  const [filter, setFilter] = useState(''); // Filter state
 
+  useEffect(() => {
+    axios
+      .get('/api/projects') // Adjust URL if needed
+      .then(response => {
+        setData(response.data); // Store data in state
+        setFilteredProjects(response.data); // Set filtered data initially as all projects
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
-useEffect(() => {
-  axios.get('/api/projects')  // Adjust URL if needed
-    .then(response => {
-      setData(response.data);  // Store data in state
-    })
-    .catch(error => {
-      console.error("Error fetching data:", error);
-    });
-}, []);
-
-const openModal = () => setIsModalOpen(true);
+  const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
     setIsEditing(false);
-    setFormData({ title: '', authors: '', year: '', description: '', url: '' });
+    setFormData({ title: '', lead: '', year: '', description: '', url: '' });
   };
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({ ...formData, [name]: value });
-};
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true); // Start loading state
-  try {
-    const projectdata = isEditing
-      ? { ...formData }
-      : { ...formData, createdBy: user._id };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true); // Start loading state
+    try {
+      const projectdata = isEditing
+        ? { ...formData }
+        : { ...formData, createdBy: user._id };
 
-    const response = isEditing
-      ? await axios.put(`/api/projects/${editData._id}`, projectdata)
-      : await axios.post('/api/projects', projectdata);
+      const response = isEditing
+        ? await axios.put(`/api/projects/${editData._id}`, projectdata)
+        : await axios.post('/api/projects', projectdata);
 
-    if (isEditing) {
-      setData(projects.map(pub => pub._id === editData._id ? response.data : pub));
-    } else {
-      setData([...projects, response.data]);
+      if (isEditing) {
+        setData(projects.map(pub => pub._id === editData._id ? response.data : pub));
+      } else {
+        setData([...projects, response.data]);
+      }
+      closeModal();
+    } catch (error) {
+      console.error('Error saving project:', error);
+      setError('Failed to save project.');
+    } finally {
+      setLoading(false); // End loading state
     }
-    closeModal();
-  } catch (error) {
-    console.error("Error saving project:", error);
-    setError("Failed to save project.");
-  } finally {
-    setLoading(false); // End loading state
-  }
-};
+  };
 
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/projects/${id}`);
+      setData(projects.filter(pub => pub._id !== id));
+    } catch (error) {
+      console.error('Error deleting project:', error);
+    }
+  };
 
+  const handleEdit = (project) => {
+    setIsEditing(true);
+    setEditData(project);
+    setFormData({ ...project });
+    setIsModalOpen(true);
+  };
 
-const handleDelete = async (id) => {
-  try {
-    await axios.delete(`/api/projects/${id}`);
-    setData(projects.filter(pub => pub._id !== id));
-  } catch (error) {
-    console.error("Error deleting project:", error);
-  }
-};
+  const handleFilterChange = (e) => {
+    const query = e.target.value.toLowerCase();
+    setFilter(query);
 
-
-const handleEdit = (project) => {
-  setIsEditing(true);
-  setEditData(project);
-  setFormData({ ...project });
-  setIsModalOpen(true);
-};
+    if (query) {
+      const filtered = projects.filter(project => 
+        project.title.toLowerCase().includes(query) ||
+        project.lead.toLowerCase().includes(query) ||
+        project.year.toString().includes(query)
+      );
+      setFilteredProjects(filtered);
+    } else {
+      setFilteredProjects(projects); // If no filter, show all projects
+    }
+  };
 
   return (
     <div className="projects-container">
       <h1 className="projects-title">Projects</h1>
       <p className="projects-subtitle">Explore our innovative projects and initiatives</p>
 
-    {user &&(
-      <motion.button
-        onClick={openModal}
-        className="add-publication-button"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Add New Project
-      </motion.button>)}
+      {/* Filter input */}
+      <div className="filter-container">
+        <input
+          type="text"
+          placeholder="Filter by title, lead, or year"
+          value={filter}
+          onChange={handleFilterChange}
+          className="filter-input"
+        />
+      </div>
+
+      {/* Add New Project Button */}
+      {user && (
+        <motion.button
+          onClick={openModal}
+          className="add-publication-button"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Add New Project
+        </motion.button>
+      )}
+
+      {/* Project Cards */}
       <div className="projects-card-container">
-        {projects.map((project, index) => (
+        {filteredProjects.map((project, index) => (
           <motion.div
             key={index}
             className="project-card"
@@ -107,10 +137,10 @@ const handleEdit = (project) => {
             <p className="project-lead"><strong>Lead:</strong> {project.lead}</p>
             <p className="project-year"><strong>Year:</strong> {project.year}</p>
             <p className="project-description">{project.description}</p>
-            <a 
-              href={project.url} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="project-link"
             >
               View Project
@@ -136,12 +166,11 @@ const handleEdit = (project) => {
               </div>
             )}
           </motion.div>
-          
         ))}
       </div>
 
-       
-       <AnimatePresence>
+      {/* Modal */}
+      <AnimatePresence>
         {isModalOpen && (
           <motion.div
             className="modal-overlay"
@@ -157,7 +186,7 @@ const handleEdit = (project) => {
               exit={{ y: "100vh" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h2>Add New Project</h2>
+              <h2>{isEditing ? 'Edit Project' : 'Add New Project'}</h2>
               {error && <p className="error-message">{error}</p>}
               <form onSubmit={handleSubmit} className="publication-form">
                 <input
@@ -221,12 +250,6 @@ const handleEdit = (project) => {
           </motion.div>
         )}
       </AnimatePresence>
-
-
-
-
-
-
     </div>
   );
 };
