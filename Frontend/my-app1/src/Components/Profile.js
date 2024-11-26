@@ -6,6 +6,8 @@ const ProfilePage = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     username: user?.username || '',
+    email: user?.email || '',
+    userType: user?.userType || '',
     userId: user?._id || '',
   });
   const [imageFile, setImageFile] = useState(null);
@@ -50,6 +52,8 @@ const ProfilePage = ({ user }) => {
 
     const form = new FormData();
     form.append('username', formData.username);
+    form.append('email', formData.email);
+    form.append('userType', formData.userType);
     form.append('userId', formData.userId);
 
     if (imageFile) {
@@ -89,11 +93,13 @@ const ProfilePage = ({ user }) => {
       {!isEditing ? (
         <div className="profile-card">
           <img
-            src={previewImage || 'default-profile.png'}
+            src={previewImage}
             alt="Profile"
             className="profile-picture"
           />
-          <h1 className="profile-name">{formData.username || 'John Doe'}</h1>
+          <h1 className="profile-name">{formData.username}</h1>
+          <p className="profile-email">{formData.email}</p>
+          <p className="profile-type">{formData.userType}</p>
           <div className="profile-actions">
             <button onClick={handleEditClick} className="edit-button">
               Edit Profile
@@ -115,6 +121,17 @@ const ProfilePage = ({ user }) => {
               onChange={handleInputChange}
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+         
           <div className="form-group">
             <label htmlFor="image">Profile Picture:</label>
             <input

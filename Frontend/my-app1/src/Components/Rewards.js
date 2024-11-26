@@ -94,7 +94,7 @@ const Rewards = ({ user }) => {
 
   return (
     <div className="rewards-page">
-      <h1 className="page-title">Rewards</h1>
+      <h1 className="page-title" >Rewards</h1>
       <p className="page-subtitle">Recognizing excellence in our department</p>
 
       <div className="filter-container">
@@ -107,7 +107,7 @@ const Rewards = ({ user }) => {
         />
       </div>
 
-      {user && (
+      {user && (user.userType==="adimn" || user.userType==="staff") && (
         <motion.button
           onClick={openModal}
           className="add-reward-button"
@@ -137,7 +137,7 @@ const Rewards = ({ user }) => {
             >
               Learn More
             </a>
-            {user && (String(user._id) === String(reward.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+            {user && (String(user._id) === String(reward.createdBy) || user.userType==="admin") && (
               <div className="action-buttons">
                 <motion.button
                   onClick={() => handleEdit(reward)}

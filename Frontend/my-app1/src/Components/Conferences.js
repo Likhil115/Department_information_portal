@@ -56,31 +56,45 @@ const Conferences = ({ user }) => {
 
     setFilteredConferences(filtered);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const conferenceData = isEditing
-        ? { ...formData }
-        : { ...formData, createdBy: user._id }; // Associate user ID
 
-      const response = isEditing
-        ? await axios.put(`/api/conferences/${editData._id}`, conferenceData)
-        : await axios.post('/api/conferences', conferenceData);
-
-      if (isEditing) {
-        setData(conferences.map(conf => conf._id === editData._id ? response.data : conf));
-        setFilteredConferences(filteredConferences.map(conf => conf._id === editData._id ? response.data : conf));
-      } else {
-        setData([...conferences, response.data]);
-        setFilteredConferences([...filteredConferences, response.data]);
-      }
-
-      closeModal();
-    } catch (error) {
-      console.error("Error saving conference:", error);
+    // Simple validation for URL
+    const urlPattern = /^https?:\/\/[^\s$.?#].[^\s]*$/gm;
+    if (formData.url && !urlPattern.test(formData.url)) {
+        alert("Please enter a valid URL.");
+        return;
     }
-  };
+
+    // Validation to ensure the date is not in the past
+    if (new Date(formData.date) < new Date()) {
+        alert("Please enter a valid future date.");
+        return;
+    }
+
+    try {
+        const conferenceData = isEditing
+            ? { ...formData }
+            : { ...formData, createdBy: user._id };
+
+        const response = isEditing
+            ? await axios.put(`/api/conferences/${editData._id}`, conferenceData)
+            : await axios.post('/api/conferences', conferenceData);
+
+        if (isEditing) {
+            setData(conferences.map(conf => conf._id === editData._id ? response.data : conf));
+            setFilteredConferences(filteredConferences.map(conf => conf._id === editData._id ? response.data : conf));
+        } else {
+            setData([...conferences, response.data]);
+            setFilteredConferences([...filteredConferences, response.data]);
+        }
+
+        closeModal();
+    } catch (error) {
+        console.error("Error saving conference:", error);
+    }
+};
+
 
   // Delete conference
   const handleDelete = async (id) => {
@@ -123,7 +137,7 @@ const Conferences = ({ user }) => {
       <div className="conferences-container">
         <p className="page-subtitle2">Join us at upcoming events around the world</p>
 
-        {user && (
+        {user && (user.userType==="admin" || user.userType==="staff") && (
           <motion.button
             onClick={openModal}
             className="add-conference-button"
@@ -156,7 +170,7 @@ const Conferences = ({ user }) => {
       >
         More Details
       </a>
-      {user && conf && (String(user._id) === String(conf.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+      {user && conf && (String(user._id) === String(conf.createdBy) || user.userType==="admin") && (
         <div className="action-buttons">
           <motion.button
             onClick={() => handleEdit(conf)}

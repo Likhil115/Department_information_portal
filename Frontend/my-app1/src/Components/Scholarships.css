@@ -4,7 +4,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f9f9f9;
+  background-color:#F8F8FF;
 }
 
 .scholarships-page {
@@ -234,3 +234,79 @@ body {
     font-size: 1.4em;
   }
 }
+.scholarship-container {
+  display: flex;
+  flex-direction: column; /* Ensures each item is in a new row */
+  gap: 20px; /* Adds spacing between rows */
+}
+
+.scholarship-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.scholarship-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.scholarship-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+   overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis;
+}
+
+.scholarship-description {
+  margin: 10px 0;
+  color: #666;
+}
+
+.scholarship-link {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.action-buttons {
+  margin-top: 10px;
+}
+
+.edit-button,
+.delete-button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #FF0000;
+}
+
+.delete-button:hover {
+  background-color: #cc0000;
+}
+.scholarship-title, .scholarship-description, .scholarship-eligibility {
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add "..." at the end of overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+}
+

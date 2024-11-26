@@ -105,7 +105,7 @@ const Publications = ({ user }) => {
       />
 
       {/* Add Publication Button */}
-      {user && (
+      {user  &&(
         <button className="add-publication-button" onClick={openModal}>
           Add New Publication
         </button>
@@ -136,7 +136,7 @@ const Publications = ({ user }) => {
               </a>
               {user &&
                 (String(user._id) === String(pub.createdBy) ||
-                  String(user._id) === "67268769c54d481cc698dd3a") && (
+                  user.userType==="admin") && (
                   <div className="publication-actions">
                     <button
                       onClick={() => handleEdit(pub)}

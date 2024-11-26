@@ -40,6 +40,44 @@ const Projects = ({ user }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Clear any previous error messages
+
+    // Validate title
+    if (formData.title.trim().length < 5 || formData.title.trim().length > 100) {
+      setError('Title must be between 5 and 100 characters.');
+      return;
+    }
+
+    // Validate lead
+    if (formData.lead.trim().length < 3 || formData.lead.trim().length > 50) {
+      setError('Lead must be between 3 and 50 characters.');
+      return;
+    }
+
+    // Validate year
+    const currentYear = new Date().getFullYear();
+    if (
+      isNaN(formData.year) ||
+      formData.year < 1900 ||
+      formData.year > currentYear
+    ) {
+      setError(`Year must be a valid number between 1900 and ${currentYear}.`);
+      return;
+    }
+
+    // Validate description
+    if (formData.description.trim().length < 10 || formData.description.trim().length > 500) {
+      setError('Description must be between 10 and 500 characters.');
+      return;
+    }
+
+    // Validate URL
+    const urlPattern = /^(https?:\/\/)/;
+    if (!urlPattern.test(formData.url)) {
+      setError('URL must start with http:// or https://.');
+      return;
+    }
+
     setLoading(true); // Start loading state
     try {
       const projectdata = isEditing
@@ -56,6 +94,7 @@ const Projects = ({ user }) => {
         setData([...projects, response.data]);
       }
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error('Error saving project:', error);
       setError('Failed to save project.');
@@ -68,6 +107,7 @@ const Projects = ({ user }) => {
     try {
       await axios.delete(`/api/projects/${id}`);
       setData(projects.filter(pub => pub._id !== id));
+      window.location.reload();
     } catch (error) {
       console.error('Error deleting project:', error);
     }
@@ -85,7 +125,7 @@ const Projects = ({ user }) => {
     setFilter(query);
 
     if (query) {
-      const filtered = projects.filter(project => 
+      const filtered = projects.filter(project =>
         project.title.toLowerCase().includes(query) ||
         project.lead.toLowerCase().includes(query) ||
         project.year.toString().includes(query)
@@ -113,7 +153,7 @@ const Projects = ({ user }) => {
       </div>
 
       {/* Add New Project Button */}
-      {user && (
+      {user &&  (
         <motion.button
           onClick={openModal}
           className="add-publication-button"
@@ -145,7 +185,7 @@ const Projects = ({ user }) => {
             >
               View Project
             </a>
-            {user && project && (String(user._id) === String(project.createdBy) || String(user._id) === "67268769c54d481cc698dd3a") && (
+            {user && project && (String(user._id) === String(project.createdBy) || user.userType === 'admin') && (
               <div className="action-buttons-inline">
                 <motion.button
                   onClick={() => handleEdit(project)}

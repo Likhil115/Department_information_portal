@@ -31,6 +31,7 @@ const Scholarships = ({ user }) => {
         setLoading(false);
       })
       .catch(() => {
+        window.location.reload();
         setError('Error fetching scholarships.');
         setLoading(false);
       });
@@ -67,38 +68,65 @@ const Scholarships = ({ user }) => {
     );
     setFilteredScholarships(filtered);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate inputs
+    if (formData.title.length < 5 || formData.title.length > 100) {
+      setError('Title must be between 5 and 100 characters.');
+      return;
+    }
+    if (formData.amount <= 0) {
+      setError('Amount must be a positive number.');
+      return;
+    }
+    if (new Date(formData.deadline) <= new Date()) {
+      setError('Deadline must be a future date.');
+      return;
+    }
+    if (formData.description.length < 10) {
+      setError('Description must be at least 10 characters.');
+      return;
+    }
+    if (!/^https?:\/\/.+\..+/.test(formData.url)) {
+      setError('Please provide a valid URL.');
+      return;
+    }
+  
+    setError(''); // Clear previous errors
     setLoading(true);
+  
     try {
       const response = isEditing
         ? await axios.put(`/api/scholarships/${editData._id}`, formData)
         : await axios.post('/api/scholarships', formData);
-
-      if (isEditing) {
-        setScholarships(
-          scholarships.map((item) =>
+  
+      const updatedScholarships = isEditing
+        ? scholarships.map((item) =>
             item._id === editData._id ? response.data : item
           )
-        );
-      } else {
-        setScholarships([...scholarships, response.data]);
-      }
-      setFilteredScholarships(scholarships);
+        : [...scholarships, response.data];
+  
+      setScholarships(updatedScholarships);
+      setFilteredScholarships(updatedScholarships);
       closeModal();
+      window.location.reload();
+
     } catch {
       setError('Failed to save scholarship.');
     } finally {
       setLoading(false);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/api/scholarships/${id}`);
       setScholarships(scholarships.filter((item) => item._id !== id));
       setFilteredScholarships(scholarships.filter((item) => item._id !== id));
+      window.location.reload();
+
     } catch {
       setError('Failed to delete scholarship.');
     }
@@ -125,7 +153,7 @@ const Scholarships = ({ user }) => {
         onChange={handleFilterChange}
       />
 
-      {user && (
+      {user && (user.userType==="staff" || user.userType==="admin") &&(
         <motion.button
           className="add-scholarship-button"
           onClick={openModal}
@@ -136,64 +164,63 @@ const Scholarships = ({ user }) => {
         </motion.button>
       )}
 
-      <div className="scholarship-container">
-        {loading ? (
-          <p className="loading-message">Loading scholarships...</p>
-        ) : error ? (
-          <p className="error-message">{error}</p>
-        ) : filteredScholarships.length > 0 ? (
-          filteredScholarships.map((scholarship) => (
-            <motion.div
-              key={scholarship._id}
-              className="scholarship-card"
-              whileHover={{
-                translateY: -10,
-                boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.2)',
-              }}
+<div className="scholarship-container">
+  {loading ? (
+    <p className="loading-message">Loading scholarships...</p>
+  ) : error ? (
+    <p className="error-message">{error}</p>
+  ) : filteredScholarships.length > 0 ? (
+    filteredScholarships.map((scholarship) => (
+      <motion.div
+        key={scholarship._id}
+        className="scholarship-card"
+        whileHover={{
+          translateY: -10,
+          boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.2)',
+        }}
+      >
+        <h2 className="scholarship-title">{scholarship.title}</h2>
+        <p className="scholarship-amount">
+          <strong>Amount:</strong> {scholarship.amount}
+        </p>
+        <p className="scholarship-eligibility">
+          <strong>Eligibility:</strong> {scholarship.eligibility}
+        </p>
+        <p className="scholarship-deadline">
+          <strong>Deadline:</strong> {scholarship.deadline}
+        </p>
+        <p className="scholarship-description">{scholarship.description}</p>
+        <a
+          href={scholarship.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="scholarship-link"
+        >
+          Apply Now
+        </a>
+        {user && (String(user._id) === String(scholarship.createdBy) || user.userType==="admin") && (
+          <div className="action-buttons">
+            <motion.button
+              className="edit-button"
+              onClick={() => handleEdit(scholarship)}
             >
-              <h2 className="scholarship-title">{scholarship.title}</h2>
-              <p className="scholarship-amount">
-                <strong>Amount:</strong> {scholarship.amount}
-              </p>
-              <p className="scholarship-eligibility">
-                <strong>Eligibility:</strong> {scholarship.eligibility}
-              </p>
-              <p className="scholarship-deadline">
-                <strong>Deadline:</strong> {scholarship.deadline}
-              </p>
-              <p className="scholarship-description">
-                {scholarship.description}
-              </p>
-              <a
-                href={scholarship.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="scholarship-link"
-              >
-                Apply Now
-              </a>
-              {user && (
-                <div className="action-buttons">
-                  <motion.button
-                    className="edit-button"
-                    onClick={() => handleEdit(scholarship)}
-                  >
-                    Edit
-                  </motion.button>
-                  <motion.button
-                    className="delete-button"
-                    onClick={() => handleDelete(scholarship._id)}
-                  >
-                    Delete
-                  </motion.button>
-                </div>
-              )}
-            </motion.div>
-          ))
-        ) : (
-          <p className="no-scholarships-message">No scholarships available.</p>
+              Edit
+            </motion.button>
+            <motion.button
+              className="delete-button"
+              onClick={() => handleDelete(scholarship._id)}
+            >
+              Delete
+            </motion.button>
+          </div>
         )}
-      </div>
+      </motion.div>
+    ))
+  ) : (
+    <p className="no-scholarships-message">No scholarships available.</p>
+  )}
+</div>
+
 
       <AnimatePresence>
         {isModalOpen && (

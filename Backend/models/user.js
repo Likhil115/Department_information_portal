@@ -30,7 +30,7 @@ const userschema=mongoose.Schema({
     },
     userType:{
         type:String,
-        enum:["student","staff"],
+        enum:["student","staff","admin"],
         default:"student",
     }
 

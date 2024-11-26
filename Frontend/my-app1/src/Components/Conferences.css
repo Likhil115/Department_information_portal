@@ -22,7 +22,7 @@ body {
   text-align: center;
   margin: 0;
   padding: 40px 0 10px;
-  color: #6ea5cc;
+  color: #000000;
 }
 
 .page-subtitle2 {
@@ -97,7 +97,7 @@ body {
 .conference-date,
 .conference-description {
   font-size: 14px;
-  color: #cfcfcf;
+  color: #000000;
   margin: 5px 0;
 }
 

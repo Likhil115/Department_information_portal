@@ -1,22 +1,24 @@
+/* Projects.css */
+
 .projects-container {
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
 }
 
 .projects-title {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 2.5rem;
   text-align: center;
   margin-bottom: 10px;
-  color: #080808;
+  color: #333;
 }
 
 .projects-subtitle {
   font-size: 1.2rem;
   text-align: center;
   margin-bottom: 20px;
-  color: #555;
+  color: #666;
 }
 
 .filter-container {
@@ -26,106 +28,221 @@
 }
 
 .filter-input {
-  width: 60%;
   padding: 10px;
   font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  outline: none;
-  transition: box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
-.filter-input:focus {
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.add-publication-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+}
+
+.add-publication-button:hover {
+  background-color: #0056b3;
 }
 
 .projects-card-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* Space between cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  overflow: hidden; /* Prevents overflowing transformed content */
 }
+
+
 .project-card {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Keep this static */
-  transition: none; /* Remove transitions */
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animation */
+  will-change: transform;
+  transform-origin: center; /* Prevents skewed scaling */
+  
 }
 
 .project-card:hover {
-  transform: none; /* Disable hover transformations */
-  box-shadow: none; /* Keep the shadow static */
+  transform: scale(1.03); /* Slightly enlarges the card */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow for effect */
 }
-
 
 .project-title {
+  
   font-size: 1.5rem;
-  font-weight: bold;
   margin-bottom: 10px;
-  word-wrap: break-word; /* Break long words */
-}
-
-.project-lead,
-.project-year,
-.project-description {
-  margin-bottom: 10px;
-  font-size: 1rem;
   color: #333;
+  white-space: nowrap; /* Prevents wrapping to a new line */
+  overflow: hidden; /* Hides overflowing content */
+  text-overflow: ellipsis;
+}
+
+.project-lead, 
+.project-year, 
+.project-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+  white-space: nowrap; /* Prevents wrapping to a new line */
+  overflow: hidden; /* Hides overflowing content */
+  text-overflow: ellipsis;
+  /* word-wrap: break-word; */
 }
 
 .project-description {
-  line-height: 1.6; /* Improve readability for long descriptions */
-  max-height: 150px;
+  max-height: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: pre-line;
+  line-height: 1.5;
 }
 
 .project-link {
   color: #007bff;
   text-decoration: none;
   font-weight: bold;
-  transition: color 0.2s ease;
 }
 
 .project-link:hover {
-  color: #0056b3;
+  text-decoration: underline;
 }
 
 .action-buttons-inline {
   display: flex;
-  justify-content: flex-start;
-  gap: 10px;
+  justify-content: space-between;
   margin-top: 10px;
 }
 
-.edit-button-inline,
+.edit-button-inline, 
 .delete-button-inline {
-  background-color: #007bff;
+  padding: 5px 10px;
   border: none;
-  color: white;
-  padding: 8px 12px;
   border-radius: 5px;
-  cursor: pointer;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
-.edit-button-inline:hover,
+.edit-button-inline {
+  background-color: #28a745;
+  color: white;
+}
+
+.edit-button-inline:hover {
+  background-color: #218838;
+}
+
+.delete-button-inline {
+  background-color: #dc3545;
+  color: white;
+}
+
 .delete-button-inline:hover {
+  background-color: #c82333;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.publication-form input, 
+.publication-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.publication-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.submit-button:hover {
   background-color: #0056b3;
-  transform: scale(1.05);
 }
 
-.edit-button-inline:active,
-.delete-button-inline:active {
-  transform: scale(0.95);
+.close-button {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.project-description {
-  max-height: 150px;
-  overflow-y: auto;
-  text-overflow: ellipsis;
+.close-button:hover {
+  background-color: #5a6268;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .projects-title {
+    font-size: 2rem;
+  }
+
+  .project-card {
+    padding: 10px;
+  }
+
+  .modal-content {
+    padding: 15px;
+  }
 }

@@ -8,7 +8,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('student');
+  const [userType, setUserType] = useState('');
   const [profilePic, setProfilePic] = useState(null); // For profile picture
   const [imagePreview, setImagePreview] = useState(null); // For image preview
   const [message, setMessage] = useState('');
@@ -25,11 +25,22 @@ const SignupPage = () => {
     e.preventDefault();
 
     // Validate email structure
-    const emailRegex = /^[a-zA-Z0-9._%+-]+_[mbp]\d{6}cs@nitc\.ac\.in$/;
-    if (!emailRegex.test(email)) {
+    const studentRegex = /^[a-zA-Z0-9._%+-]+_[mbp]\d{6}cs@nitc\.ac\.in$/;
+    const staffRegex = /^[a-zA-Z0-9._%+-]+@nitc\.ac\.in$/;
+
+    if (studentRegex.test(email)) {
+       if (email==="likhil_m241067cs@nitc.ac.in") {
+        setUserType('admin');
+      } 
+      else{
+      setUserType('student');}
+    } else if (staffRegex.test(email)) {
+      setUserType('staff');
+    }  
+    else {
       setMessage({
         type: 'error',
-        text: 'Login with institute email',
+        text: 'Login with institute email.',
       });
       return;
     }
